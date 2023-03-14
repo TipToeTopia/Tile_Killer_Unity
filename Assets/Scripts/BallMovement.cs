@@ -76,6 +76,7 @@ public class BallMovement : MonoBehaviour
         }
     }
 
+    // function used to find offset of ball collision with paddle
     private float BallRelativePositionToBall(Vector3 BallPosition, Vector3 PlayerPosition, float PlayerWidth)
     {
         return ((BallPosition.x - PlayerPosition.x) / PlayerWidth) * BALL_DIRECTIONAL_MULTIPLIER;
