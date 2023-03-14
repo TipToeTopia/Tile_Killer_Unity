@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Power_Up : MonoBehaviour
+public class PowerUpBase : MonoBehaviour
 {
     protected float despawnY;
 
     protected int powerUpSpeed = 5;
 
-    private GameObject playerInstance;
+    protected GameObject playerInstance;
 
     protected virtual void Start()
     {
@@ -23,9 +23,23 @@ public class Power_Up : MonoBehaviour
 
         if (this.transform.position.z < despawnY)
         {
-            GameManager.Instance.DecrementPowerUpList();
-            Destroy(gameObject);
+            DestroyPowerUp();   
         }
     }
 
+    protected virtual void OnTriggerEnter(Collider Other)
+    {
+        if (playerInstance == null)
+        {
+            DestroyPowerUp();
+
+            return;
+        }
+    }
+
+    protected void DestroyPowerUp()
+    {
+        GameManager.Instance.DecrementPowerUpList();
+        Destroy(gameObject);
+    }
 }

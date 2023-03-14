@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplodingPowerUp : MonoBehaviour
+public class ExplodingPowerUp : PowerUpBase
 {
-    [SerializeField]
-    private int powerUpSpeed = 5;
     private int explosionRadius = 1;
 
-    private GameObject playerInstance;
     private GameObject ballInstance;
 
     [SerializeField]
     private Rigidbody explodingBall;
-
-    private float despawnY;
 
     private int explodingProjectiles = 5;
     private int forceApplied = 200;
@@ -26,29 +21,17 @@ public class ExplodingPowerUp : MonoBehaviour
     [SerializeField]
     private AudioClip explodingBallSound;
 
-    void Start()
+    protected override void Start()
     {
-        playerInstance = Player.Instance.gameObject;
+        base.Start();
+
         ballInstance = GameObject.FindGameObjectWithTag(BALL_TAG);
-
-        despawnY = GameManager.Instance.GetDespawnCoordinate();
     }
 
-
-    void Update()
+    protected override void OnTriggerEnter(Collider Other)
     {
-        this.transform.position += new Vector3(0.0f, 0.0f, -powerUpSpeed) * Time.deltaTime;
+        base.OnTriggerEnter(Other);
 
-        if (this.transform.position.z < despawnY)
-        {
-            GameManager.Instance.DecrementPowerUpList();
-            Destroy(gameObject);
-        }
-
-    }
-
-    private void OnTriggerEnter(Collider Other)
-    {
         if (Other.gameObject == playerInstance)
         {
             if (ballInstance != null)
@@ -76,9 +59,8 @@ public class ExplodingPowerUp : MonoBehaviour
             }
 
             AudioManager.Instance.PlaySound(explodingBallSound);
-            GameManager.Instance.DecrementPowerUpList();
 
-            Destroy(gameObject);
+            DestroyPowerUp();
         }
     }
 }
