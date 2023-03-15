@@ -53,15 +53,11 @@ public class GameManager : MonoBehaviour
     private Text highScoreUI;
 
     [HideInInspector]
-    public int maximumScore = 0;
-    [HideInInspector]
     public int gameScore = 0;
-    [HideInInspector]
-    public int scoreForEveryLevel = 0;
 
-    int tileNumber = 0;
     int highScore = 0;
 
+    [HideInInspector]
     public List<GameObject> tileList;
 
     private const float WIN_DELAY_TIMER = 2.0f;
@@ -217,7 +213,6 @@ public class GameManager : MonoBehaviour
     public void UpdateScore(int Amount = SCORE_GAINED)
     {
         gameScore += Amount;
-        scoreForEveryLevel += Amount;
 
         if (gameScore > highScore)
         {
@@ -287,12 +282,9 @@ public class GameManager : MonoBehaviour
                 GameObject SpawnedTile = Instantiate(tileObject, new Vector3(I, SPAWN_Y, J), Quaternion.identity, parentObject.transform);
 
                 tileList.Add(SpawnedTile);
-                tileNumber++;
             }
         }
 
-        maximumScore = tileNumber * SCORE_GAINED;
-        tileNumber = 0;
     }
 
     public void SpawnBoss()

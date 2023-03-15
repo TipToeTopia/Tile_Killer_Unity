@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
     private const int LEVEL_FOUR_INDEX = 4;
     private const int LEVEL_FIVE_INDEX = 5;
 
-    private const int RESET_EVERY_LEVEL_SCORE = 0;
+    private const int ZERO_TILES = 0;
 
     private static LevelManager instance = null;
 
@@ -62,10 +62,8 @@ public class LevelManager : MonoBehaviour
     {
         // load up the next level if the score for that level is equal to that levels maximum score
 
-        if (gameManager.scoreForEveryLevel == gameManager.maximumScore)
+        if (gameManager.tileList.Count == ZERO_TILES)
         {
-            gameManager.scoreForEveryLevel = RESET_EVERY_LEVEL_SCORE;
-
             if (isInLevelOne)
             {
                 LoadLevelTwo();

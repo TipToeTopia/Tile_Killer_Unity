@@ -19,7 +19,7 @@ public class TileKillerAI : MonoBehaviour
 
     private Transform targetInstance;
 
-    private List<GameObject> TilesInGame;
+    private List<GameObject> tilesInGame;
 
     private float targetRange = 2.0f;
 
@@ -96,19 +96,20 @@ public class TileKillerAI : MonoBehaviour
     {
         yield return new WaitForSeconds(COROUTINE_DELAY);
 
-        TilesInGame = GameManager.Instance.tileList;
+        tilesInGame = GameManager.Instance.tileList;
+
         Transform ClosestTarget = null;
         float MaximumDistance = Mathf.Infinity;
 
-        for (int I = 0; I < TilesInGame.Count; I++)
+        for (int I = 0; I < tilesInGame.Count; I++)
         {
-            if (TilesInGame[I] != null)
+            if (tilesInGame[I] != null)
             {
-                float TargetDistance = Vector3.Distance(this.transform.position, TilesInGame[I].transform.position);
+                float TargetDistance = Vector3.Distance(this.transform.position, tilesInGame[I].transform.position);
 
                 if (TargetDistance < MaximumDistance)
                 {
-                    ClosestTarget = TilesInGame[I].transform;
+                    ClosestTarget = tilesInGame[I].transform;
                     MaximumDistance = TargetDistance;
                 }
             }
