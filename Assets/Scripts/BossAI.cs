@@ -103,7 +103,7 @@ public class BossAI : MonoBehaviour
         {
             PingPongBoss();
 
-            attackTimer +=  Time.deltaTime; // timer begins
+            attackTimer += Time.deltaTime; // timer begins
 
             if (attackTimer >= waitTimer)
             {
@@ -111,7 +111,6 @@ public class BossAI : MonoBehaviour
                 Instantiate(bombAI, this.transform.position, Quaternion.identity);
                 attackTimer = 0;
             }
-
         }
         else
         {
@@ -129,7 +128,6 @@ public class BossAI : MonoBehaviour
     {
         EventTriggers(Other);
     }
-
 
     private void OnCollisionEnter(Collision Collision)
     {

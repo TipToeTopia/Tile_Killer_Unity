@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -60,6 +61,8 @@ public class GameManager : MonoBehaviour
 
     int tileNumber = 0;
     int highScore = 0;
+
+    public List<GameObject> tileList;
 
     private const float WIN_DELAY_TIMER = 2.0f;
 
@@ -275,11 +278,15 @@ public class GameManager : MonoBehaviour
     {
         // load up tile grid
 
+        tileList.Clear();
+
         for (float I = XMinimum; I < XMaximum; I = I + GridXInterval)
         {
             for (float J = YMinimum; J < YMaximum; J = J + GridYInterval)
             {
-                Instantiate(tileObject, new Vector3(I, SPAWN_Y, J), Quaternion.identity, parentObject.transform);
+                GameObject SpawnedTile = Instantiate(tileObject, new Vector3(I, SPAWN_Y, J), Quaternion.identity, parentObject.transform);
+
+                tileList.Add(SpawnedTile);
                 tileNumber++;
             }
         }

@@ -69,6 +69,8 @@ public class TileLogic : MonoBehaviour
 
         // slight buffer for ball reflection to be calculated indefinitely
 
+        GameManager.Instance.tileList.Remove(this.gameObject);
+
         StartCoroutine(TileDestructionDelay());
     }
 
@@ -77,6 +79,7 @@ public class TileLogic : MonoBehaviour
         if (GameManager.Instance.activePowerUps.Count < powerUpsInGameLimit)
         {
             Instantiate(PowerUp, transform.position, Quaternion.identity);
+
             AudioManager.Instance.PlaySound(powerUpDropSound);
             GameManager.Instance.IncrementPowerUpList();
         }
@@ -86,5 +89,6 @@ public class TileLogic : MonoBehaviour
     {
         yield return new WaitForSeconds(DESTRUCTION_DELAY);
         Destroy(gameObject);
+
     }
 }

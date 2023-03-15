@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,6 +18,8 @@ public class TileKillerAI : MonoBehaviour
     float waitTimer = 2.0f;
 
     private Transform targetInstance;
+
+    private List<GameObject> TilesInGame;
 
     private float targetRange = 2.0f;
 
@@ -50,6 +53,8 @@ public class TileKillerAI : MonoBehaviour
             if (navmeshAgent.remainingDistance <= navmeshAgent.stoppingDistance)
             {
                 GameManager.Instance.UpdateScore();
+
+                GameManager.Instance.tileList.Remove(targetInstance.gameObject);
                 Destroy(targetInstance.gameObject);
             }
         }
@@ -91,18 +96,21 @@ public class TileKillerAI : MonoBehaviour
     {
         yield return new WaitForSeconds(COROUTINE_DELAY);
 
-        TileLogic[] Tiles = FindObjectsOfType<TileLogic>();
+        TilesInGame = GameManager.Instance.tileList;
         Transform ClosestTarget = null;
         float MaximumDistance = Mathf.Infinity;
 
-        for (int I = 0; I < Tiles.Length; I++)
+        for (int I = 0; I < TilesInGame.Count; I++)
         {
-            float TargetDistance = Vector3.Distance(this.transform.position, Tiles[I].transform.position);
-
-            if (TargetDistance < MaximumDistance)
+            if (TilesInGame[I] != null)
             {
-                ClosestTarget = Tiles[I].transform;
-                MaximumDistance = TargetDistance;
+                float TargetDistance = Vector3.Distance(this.transform.position, TilesInGame[I].transform.position);
+
+                if (TargetDistance < MaximumDistance)
+                {
+                    ClosestTarget = TilesInGame[I].transform;
+                    MaximumDistance = TargetDistance;
+                }
             }
         }
 
