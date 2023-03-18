@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private const float PLAYER_SPEED = 100.0f;
+    private const float PLAYER_SPEED = 40.0f;
 
     [SerializeField]
     private Rigidbody rigidBody;
